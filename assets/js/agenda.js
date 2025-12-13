@@ -45,6 +45,7 @@ function renderCalendar(concerts) {
   const calendar = document.getElementById("calendar");
   calendar.innerHTML = "";
 
+  // Group concerts by month
   const byMonth = {};
 
   concerts.forEach(c => {
@@ -54,30 +55,56 @@ function renderCalendar(concerts) {
     byMonth[key].push({ ...c, date: d });
   });
 
-  Object.values(byMonth).forEach(monthConcerts => {
+  Object.keys(byMonth).sort().forEach(key => {
+    const monthConcerts = byMonth[key];
     monthConcerts.sort((a, b) => a.date - b.date);
 
-    const monthTitle = monthConcerts[0].date.toLocaleString("default", {
-      month: "long",
-      year: "numeric"
-    });
+    const firstDate = new Date(monthConcerts[0].date.getFullYear(), monthConcerts[0].date.getMonth(), 1);
+    const lastDate = new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, 0);
+    const monthTitle = firstDate.toLocaleString("default", { month: "long", year: "numeric" });
 
     const section = document.createElement("section");
     section.className = "calendar-month";
     section.innerHTML = `<h3>${monthTitle}</h3>`;
 
     const grid = document.createElement("div");
-    grid.className = "calendar-grid";
+    grid.className = "calendar-grid-weekdays";
 
-    monthConcerts.forEach(c => {
+    // Add weekday headers
+    const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    weekdays.forEach(w => {
       const cell = document.createElement("div");
-      cell.className = "calendar-item";
-      cell.innerHTML = `
-        <div class="date">${c.date.getDate()}</div>
-        <a href="${c.url}">${c.title}</a>
-      `;
+      cell.className = "calendar-header";
+      cell.textContent = w;
       grid.appendChild(cell);
     });
+
+    // Fill empty cells for first week
+    const startWeekday = (firstDate.getDay() + 6) % 7; // Convert Sun=0 → 6, Mon=0 → 0
+    for (let i = 0; i < startWeekday; i++) {
+      const emptyCell = document.createElement("div");
+      emptyCell.className = "calendar-item empty";
+      grid.appendChild(emptyCell);
+    }
+
+    // Fill days
+    for (let day = 1; day <= lastDate.getDate(); day++) {
+      const date = new Date(firstDate.getFullYear(), firstDate.getMonth(), day);
+      const dayCell = document.createElement("div");
+      dayCell.className = "calendar-item";
+
+      // Find concerts for this day
+      const dayConcerts = monthConcerts.filter(c => c.date.getDate() === day);
+      if (dayConcerts.length > 0) {
+        dayCell.innerHTML = dayConcerts.map(c =>
+          `<div class="date">${day}</div><a href="${c.url}">${c.title}</a>`
+        ).join("");
+      } else {
+        dayCell.innerHTML = `<div class="date">${day}</div>`;
+      }
+
+      grid.appendChild(dayCell);
+    }
 
     section.appendChild(grid);
     calendar.appendChild(section);
