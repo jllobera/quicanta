@@ -1,5 +1,5 @@
 async function loadAgenda() {
-  const response = await fetch("../agenda.json");
+  const response = await fetch("/quicanta/agenda.json");
   const concerts = await response.json();
 
   const choirSelect = document.getElementById("filter-choir");
