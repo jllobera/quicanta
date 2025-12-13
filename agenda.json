@@ -1,6 +1,8 @@
 ---
 permalink: /agenda.json
+layout: null
 ---
+
 [
 {% assign concerts = site.concerts | sort: "start" %}
 {% for concert in concerts %}
