@@ -4,12 +4,15 @@ permalink: /agenda.json
 [
 {% assign concerts = site.concerts | sort: "start" %}
 {% for concert in concerts %}
+  {% assign venue = site.venues | where: "slug", concert.venue | first %}
   {
     "title": {{ concert.title | jsonify }},
     "url": {{ concert.url | relative_url | jsonify }},
     "start": {{ concert.start | jsonify }},
     "choirs": {{ concert.choirs | jsonify }},
-    "venue": {{ concert.venue | jsonify }}
+    "venue": {{ concert.venue | jsonify }},
+    "city": {{ venue.city | jsonify }}
   }{% unless forloop.last %},{% endunless %}
 {% endfor %}
 ]
+
