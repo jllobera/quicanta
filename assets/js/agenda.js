@@ -10,7 +10,7 @@ async function loadAgenda() {
   const cities = new Set();
 
   concerts.forEach(c => {
-    (c.choirs || []).forEach(ch => choirs.add(ch));
+    (c.choir_names || []).forEach(name => choirs.add(name));
     if (c.city) cities.add(c.city);
   });
 
@@ -27,7 +27,7 @@ async function loadAgenda() {
     const cityFilter = citySelect.value;
 
     const filtered = concerts.filter(c => {
-      if (choirFilter && !c.choirs?.includes(choirFilter)) return false;
+      if (choirFilter && !(c.choir_names || []).includes(choirFilter)) return false;
       if (cityFilter && c.city !== cityFilter) return false;
       return true;
     });
