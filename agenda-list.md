@@ -1,6 +1,6 @@
 ---
-title: Agenda
-permalink: /agenda/
+title: Agenda List
+permalink: /agenda-list/
 ---
 
 <h2>Concert agenda</h2>
