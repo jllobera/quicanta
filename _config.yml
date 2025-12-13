@@ -1,7 +1,8 @@
 title: Amateur Choirs Directory
 description: A public platform for amateur choirs in the region
-baseurl: ""     # leave empty for GitHub Pages root
-url: ""         # optional
+baseurl: "/quicanta"
+url: ""         # "https://jllobera.github.io"
+
 
 markdown: kramdown
 
