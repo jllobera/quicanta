@@ -26,3 +26,12 @@ a {
 .choir-list li {
   margin-bottom: 1rem;
 }
+
+.agenda {
+  list-style: none;
+  padding-left: 0;
+}
+
+.agenda-item {
+  margin-bottom: 0.5rem;
+}
