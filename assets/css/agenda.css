@@ -43,3 +43,9 @@
   margin-bottom: 0.25rem;
 }
 
+.agenda-item.today,
+.calendar-item.today {
+  background: #fffae5;
+  border-color: #f1c40f;
+}
+
