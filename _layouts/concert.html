@@ -14,7 +14,17 @@ layout: default
   {% endif %}
 
   {% if page.venue %}
-    <p><strong>Venue:</strong> {{ page.venue }}</p>
+    {% assign venue = site.venues | where: "slug", page.venue | first %}
+    <p>
+      <strong>Venue:</strong>
+      {% if venue %}
+        <a href="{{ venue.url | relative_url }}">
+          {{ venue.name }}
+        </a>
+      {% else %}
+        {{ page.venue }}
+      {% endif %}
+    </p>
   {% endif %}
 
   {% if page.choirs %}
