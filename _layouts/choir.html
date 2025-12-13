@@ -1,0 +1,32 @@
+---
+layout: default
+---
+
+<article class="choir">
+
+  <h2>{{ page.name }}</h2>
+
+  <p><strong>City:</strong> {{ page.city }}</p>
+
+  {% if page.founded %}
+    <p><strong>Founded:</strong> {{ page.founded }}</p>
+  {% endif %}
+
+  {% if page.voice_types %}
+    <p>
+      <strong>Voices:</strong>
+      {{ page.voice_types | join: ", " }}
+    </p>
+  {% endif %}
+
+  {% if page.website %}
+    <p>
+      <a href="{{ page.website }}" target="_blank">Website</a>
+    </p>
+  {% endif %}
+
+  <div class="description">
+    {{ content }}
+  </div>
+
+</article>
