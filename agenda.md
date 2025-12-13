@@ -19,6 +19,8 @@ permalink: /agenda/
       <option value="">All cities</option>
     </select>
   </label>
+
+  <button id="toggle-view">Switch to Calendar View</button>
 </div>
 
 <div id="calendar"></div>
