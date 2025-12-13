@@ -1,0 +1,17 @@
+title: Amateur Choirs Directory
+description: A public platform for amateur choirs in the region
+baseurl: ""     # leave empty for GitHub Pages root
+url: ""         # optional
+
+markdown: kramdown
+
+collections:
+  choirs:
+    output: true
+    permalink: /choirs/:slug/
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
