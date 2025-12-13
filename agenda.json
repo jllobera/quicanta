@@ -7,14 +7,23 @@ layout: null
 {% assign concerts = site.concerts | sort: "start" %}
 {% for concert in concerts %}
   {% assign venue = site.venues | where: "slug", concert.venue | first %}
+  {% assign choir_names = "" | split: "" %}
+  {% for choir_slug in concert.choirs %}
+    {% assign choir = site.choirs | where: "slug", choir_slug | first %}
+    {% if choir %}
+      {% assign choir_names = choir_names | push: choir.name %}
+    {% else %}
+      {% assign choir_names = choir_names | push: choir_slug %}
+    {% endif %}
+  {% endfor %}
   {
     "title": {{ concert.title | jsonify }},
     "url": {{ concert.url | relative_url | jsonify }},
     "start": {{ concert.start | jsonify }},
     "choirs": {{ concert.choirs | jsonify }},
+    "choir_names": {{ choir_names | jsonify }},
     "venue": {{ concert.venue | jsonify }},
     "city": {{ venue.city | jsonify }}
   }{% unless forloop.last %},{% endunless %}
 {% endfor %}
 ]
-
