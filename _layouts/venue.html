@@ -1,0 +1,45 @@
+---
+layout: default
+---
+
+<article class="venue">
+
+  <h2>{{ page.name }}</h2>
+
+  {% if page.address %}
+    <p><strong>Address:</strong> {{ page.address }}</p>
+  {% endif %}
+
+  {% if page.city %}
+    <p><strong>City:</strong> {{ page.city }}</p>
+  {% endif %}
+
+  {% if page.website %}
+    <p>
+      <a href="{{ page.website }}" target="_blank">Website</a>
+    </p>
+  {% endif %}
+
+  <div class="description">
+    {{ content }}
+  </div>
+
+  {% assign venue_concerts = site.concerts | where: "venue", page.slug %}
+
+  {% if venue_concerts.size > 0 %}
+    <h3>Concerts at this venue</h3>
+    <ul>
+      {% for concert in venue_concerts %}
+        <li>
+          <a href="{{ concert.url | relative_url }}">
+            {{ concert.title }}
+          </a>
+          {% if concert.start %}
+            – {{ concert.start | date: "%d %B %Y" }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+</article>
