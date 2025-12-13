@@ -1,5 +1,6 @@
 ---
 title: Choirs
+permalink: /choirs/
 ---
 
 <h2>Choirs</h2>
