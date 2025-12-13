@@ -1,0 +1,42 @@
+---
+layout: default
+---
+
+<article class="concert">
+
+  <h2>{{ page.title }}</h2>
+
+  {% if page.start %}
+    <p>
+      <strong>Date:</strong>
+      {{ page.start | date: "%A, %d %B %Y at %H:%M" }}
+    </p>
+  {% endif %}
+
+  {% if page.venue %}
+    <p><strong>Venue:</strong> {{ page.venue }}</p>
+  {% endif %}
+
+  {% if page.choirs %}
+    <h3>Participating choirs</h3>
+    <ul>
+      {% for choir_slug in page.choirs %}
+        {% assign choir = site.choirs | where: "slug", choir_slug | first %}
+        {% if choir %}
+          <li>
+            <a href="{{ choir.url | relative_url }}">
+              {{ choir.name }}
+            </a>
+          </li>
+        {% else %}
+          <li>{{ choir_slug }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <div class="description">
+    {{ content }}
+  </div>
+
+</article>
