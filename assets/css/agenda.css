@@ -1,0 +1,25 @@
+#agenda-controls {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.calendar-month {
+  margin-bottom: 2rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.5rem;
+}
+
+.calendar-item {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  background: #fafafa;
+}
+
+.calendar-item .date {
+  font-weight: bold;
+}
