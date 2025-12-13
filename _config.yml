@@ -3,7 +3,6 @@ description: A public platform for amateur choirs in the region
 baseurl: "/quicanta"
 url: ""         # "https://jllobera.github.io"
 
-
 markdown: kramdown
 
 collections:
@@ -13,7 +12,9 @@ collections:
   concerts:
     output: true
     permalink: /concerts/:slug/
-
+  venues:
+    output: true
+    permalink: /venues/:slug/
 
 defaults:
   - scope:
