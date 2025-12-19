@@ -1,6 +1,6 @@
 async function loadAgenda() {
   const response = await fetch("/quicanta/agenda.json");
-  const concerts = await response.json();
+  const events = await response.json();
 
   const choirSelect = document.getElementById("filter-choir");
   const citySelect = document.getElementById("filter-city");
@@ -13,7 +13,7 @@ async function loadAgenda() {
   const choirs = new Set();
   const cities = new Set();
 
-  concerts.forEach(c => {
+  events.forEach(c => {
     (c.choir_names || []).forEach(name => choirs.add(name));
     if (c.city) cities.add(c.city);
   });
@@ -29,7 +29,7 @@ async function loadAgenda() {
     const choirFilter = choirSelect.value;
     const cityFilter = citySelect.value;
 
-    const filtered = concerts.filter(c => {
+    const filtered = events.filter(c => {
       if (choirFilter && !(c.choir_names || []).includes(choirFilter)) return false;
       if (cityFilter && c.city !== cityFilter) return false;
       return true;
@@ -55,7 +55,7 @@ async function loadAgenda() {
 }
 
 // --- List view (existing month-grouped list) ---
-function renderList(concerts) {
+function renderList(events) {
   const calendar = document.getElementById("calendar");
   calendar.innerHTML = "";
 
@@ -64,12 +64,12 @@ function renderList(concerts) {
   let currentMonth = "";
   calendar.innerHTML = "";
 
-  concerts.sort((a,b) => new Date(a.start) - new Date(b.start)).forEach(concert => {
-    if (!concert.start) return;
-    const concertDate = concert.start.slice(0,10);
-    if (concertDate < todayStr) return;
+  events.sort((a,b) => new Date(a.start) - new Date(b.start)).forEach(event => {
+    if (!event.start) return;
+    const eventDate = event.start.slice(0,10);
+    if (eventDate < todayStr) return;
 
-    const monthLabel = new Date(concert.start).toLocaleString("default", { month: "long", year: "numeric" });
+    const monthLabel = new Date(event.start).toLocaleString("default", { month: "long", year: "numeric" });
     if (monthLabel !== currentMonth) {
       const h3 = document.createElement("h3");
       h3.textContent = monthLabel;
@@ -83,15 +83,15 @@ function renderList(concerts) {
     const ul = calendar.querySelector("ul:last-of-type");
     const li = document.createElement("li");
     li.className = "agenda-item";
-    if (concert.start.slice(0,10) === todayStr) li.classList.add("today");
-    li.innerHTML = `<strong>${new Date(concert.start).toLocaleDateString(undefined, { weekday:'short', day:'2-digit' })}</strong> – 
-                    <a href="${concert.url}">${concert.title}</a>`;
+    if (event.start.slice(0,10) === todayStr) li.classList.add("today");
+    li.innerHTML = `<strong>${new Date(event.start).toLocaleDateString(undefined, { weekday:'short', day:'2-digit' })}</strong> – 
+                    <a href="${event.url}">${event.title}</a>`;
     ul.appendChild(li);
   });
 }
 
 // --- Calendar view (weekday-aligned) ---
-function renderCalendar(concerts) {
+function renderCalendar(events) {
   const calendar = document.getElementById("calendar");
   calendar.innerHTML = "";
 
@@ -99,7 +99,7 @@ function renderCalendar(concerts) {
   today.setHours(0,0,0,0);
 
   const byMonth = {};
-  concerts.forEach(c => {
+  events.forEach(c => {
     const d = new Date(c.start);
     const key = `${d.getFullYear()}-${d.getMonth()}`;
     byMonth[key] ||= [];
@@ -107,10 +107,10 @@ function renderCalendar(concerts) {
   });
 
   Object.keys(byMonth).sort().forEach(key => {
-    const monthConcerts = byMonth[key];
-    monthConcerts.sort((a,b) => a.date - b.date);
+    const monthEvents = byMonth[key];
+    monthEvents.sort((a,b) => a.date - b.date);
 
-    const firstDate = new Date(monthConcerts[0].date.getFullYear(), monthConcerts[0].date.getMonth(), 1);
+    const firstDate = new Date(monthEvents[0].date.getFullYear(), monthEvents[0].date.getMonth(), 1);
     const lastDate = new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, 0);
     const monthTitle = firstDate.toLocaleString("default", { month: "long", year: "numeric" });
 
@@ -143,9 +143,9 @@ function renderCalendar(concerts) {
       dayCell.className = "calendar-item";
       if (+date === +today) dayCell.classList.add("today");
 
-      const dayConcerts = monthConcerts.filter(c => c.date.getDate() === day);
-      if (dayConcerts.length > 0) {
-        dayCell.innerHTML = dayConcerts.map(c => 
+      const dayEvents = monthEvents.filter(c => c.date.getDate() === day);
+      if (dayEvents.length > 0) {
+        dayCell.innerHTML = dayEvents.map(c => 
           `<div class="date">${day}</div><a href="${c.url}">${c.title}</a>`
         ).join("");
       } else {
