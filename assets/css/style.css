@@ -89,6 +89,17 @@ header nav a {
   text-decoration: none;
 }
 
+.submenu-toggle {
+  cursor: pointer;
+  color: #333;
+  text-decoration: none;
+}
+
+.submenu-toggle:hover {
+  color: #007BFF;
+}
+
+
 /* Hover for desktop */
 @media (min-width: 768px) {
   .has-submenu:hover > .submenu {
@@ -141,4 +152,3 @@ header nav a {
     display: block;
   }
 }
-
