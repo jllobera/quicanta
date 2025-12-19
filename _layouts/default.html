@@ -9,14 +9,28 @@
 
 <header>
   <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
-  <nav>
-    <a href="{{ '/choirs/' | relative_url }}">Choirs</a>
-    <a href="{{ '/events/' | relative_url }}">Events</a>
-    <a href="{{ '/agenda/' | relative_url }}">Agenda</a>
-    <a href="{{ '/venues/' | relative_url }}">Venues</a>
-    <a href="{{ '/people/' | relative_url }}">People</a>
+
+  <!-- Hamburger toggle for mobile -->
+  <button id="nav-toggle" aria-label="Toggle navigation">☰</button>
+
+  <nav id="main-nav">
+    <ul class="main-nav">
+      <li><a href="{{ '/choirs/' | relative_url }}">Choirs</a></li>
+
+      <li class="has-submenu">
+        <span class="submenu-toggle">Events ▼</span>
+        <ul class="submenu">
+          <li><a href="{{ '/events/' | relative_url }}">Event list</a></li>
+          <li><a href="{{ '/agenda/' | relative_url }}">Agenda</a></li>
+        </ul>
+      </li>
+
+      <li><a href="{{ '/venues/' | relative_url }}">Venues</a></li>
+      <!-- <li><a href="{{ '/people/' | relative_url }}">People</a></li> -->
+    </ul>
   </nav>
 </header>
+
 
 <main>
   {{ content }}
