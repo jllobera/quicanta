@@ -11,7 +11,7 @@ collections:
     permalink: /choirs/:slug/
   events:
     output: true
-    permalink: /concerts/:slug/
+    permalink: /events/:slug/
   venues:
     output: true
     permalink: /venues/:slug/
