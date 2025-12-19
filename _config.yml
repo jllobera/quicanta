@@ -15,9 +15,9 @@ collections:
   venues:
     output: true
     permalink: /venues/:slug/
-  conductors:
+  people:
     output: true
-    permalink: /conductors/:slug/
+    permalink: /people/:slug/
 
 defaults:
   - scope:
