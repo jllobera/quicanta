@@ -36,6 +36,13 @@ a {
   margin-bottom: 0.5rem;
 }
 
+/* Header layout: title on left, nav on right */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 /* Header nav spacing */
 header nav {
   display: flex;      /* arrange links horizontally */
