@@ -11,8 +11,13 @@ layout: default
   {% endcomment %}
   {% assign choirs_led = "" | split: "" %}
   {% for choir in site.choirs %}
-    {% if choir.conductors and choir.conductors contains page.slug %}
-      {% assign choirs_led = choirs_led | push: choir %}
+    {% if choir.conductors %}
+      {% for c in choir.conductors %}
+        {% if c.slug == page.slug %}
+          {% assign choirs_led = choirs_led | push: choir %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
     {% endif %}
   {% endfor %}
 
