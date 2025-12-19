@@ -35,3 +35,14 @@ a {
 .agenda-item {
   margin-bottom: 0.5rem;
 }
+
+/* Header nav spacing */
+header nav {
+  display: flex;      /* arrange links horizontally */
+  gap: 1.5rem;        /* space between links */
+}
+
+header nav a {
+  text-decoration: none; /* remove underline if needed */
+  color: inherit;        /* use the header's text color */
+}
