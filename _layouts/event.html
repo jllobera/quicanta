@@ -29,18 +29,48 @@ layout: default
 
   {% if page.choirs %}
     <h3>Participating choirs</h3>
-    <ul>
-      {% for choir_slug in page.choirs %}
-        {% assign choir = site.choirs | where: "slug", choir_slug | first %}
-        {% if choir %}
-          <li>
-            <a href="{{ choir.url | relative_url }}">
-              {{ choir.name }}
-            </a>
-          </li>
-        {% else %}
-          <li>{{ choir_slug }}</li>
-        {% endif %}
+    <ul class="event-choirs">
+      {% for choir_entry in page.choirs %}
+        {% assign choir = site.choirs | where: "slug", choir_entry.slug | first %}
+  
+        <li class="event-choir">
+          {% if choir %}
+            <strong>
+              <a href="{{ choir.url | relative_url }}">
+                {{ choir.name }}
+              </a>
+            </strong>
+          {% else %}
+            <strong>{{ choir_entry.slug }}</strong>
+          {% endif %}
+  
+          {%- comment -%}
+          Resolve conductors:
+          1. event-specific
+          2. fallback to choir defaults
+          {%- endcomment -%}
+          {% if choir_entry.conductors %}
+            {% assign conductor_slugs = choir_entry.conductors %}
+          {% elsif choir and choir.conductors %}
+            {% assign conductor_slugs = choir.conductors %}
+          {% else %}
+            {% assign conductor_slugs = nil %}
+          {% endif %}
+  
+          {% if conductor_slugs %}
+            <div class="event-conductors">
+              <span class="label">Conductor{% if conductor_slugs.size > 1 %}s{% endif %}:</span>
+              {% for cslug in conductor_slugs %}
+                {% assign conductor = site.conductors | where: "slug", cslug | first %}
+                {% if conductor %}
+                  <span class="conductor-name">{{ conductor.name }}</span>{% unless forloop.last %}, {% endunless %}
+                {% else %}
+                  <span class="conductor-name">{{ cslug }}</span>{% unless forloop.last %}, {% endunless %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% endif %}
+        </li>
       {% endfor %}
     </ul>
   {% endif %}
