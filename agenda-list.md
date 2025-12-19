@@ -3,7 +3,7 @@ title: Agenda List
 permalink: /agenda-list/
 ---
 
-<h2>Concert agenda</h2>
+<h2>Event agenda</h2>
 
 {% assign today = site.time | date: "%Y-%m-%d" %}
 {% assign events = site.events | sort: "start" %}
