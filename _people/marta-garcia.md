@@ -1,4 +1,5 @@
 ---
+layout: conductor
 slug: marta-garcia
 name: Marta García
 role: conductor
