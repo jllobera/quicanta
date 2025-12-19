@@ -58,26 +58,40 @@ layout: default
   {% comment %}
   -----------------------------
   EVENTS SECTION
+  Works with Jekyll 3.10.0 / GitHub Pages
   -----------------------------
   {% endcomment %}
 
   {% assign now = "now" | date: "%s" %}
 
   {% comment %}
-  Filter events where this choir participates.
-  We must extract the slugs because `event.choirs` is an array of objects.
+  Collect choir events manually because we cannot use pipes inside where_exp
   {% endcomment %}
-  {% assign choir_events = site.events | where_exp: "event", "event.choirs | map: 'slug' | contains page.slug" %}
+  {% assign choir_events = "" | split: "," %}
 
-  {% comment %}
-  Sort first by start date (ascending) to avoid Liquid filtering issues.
-  Use event.start | date: '%s' to compare Unix timestamps reliably.
-  {% endcomment %}
-  {% assign upcoming_events = choir_events | sort: "start" %}
-  {% assign upcoming_events = upcoming_events | where_exp: "event", "event.start and event.start | date: '%s' >= now" %}
+  {% for event in site.events %}
+    {% assign choir_slugs = event.choirs | map: "slug" %}
+    {% if choir_slugs contains page.slug %}
+      {% assign choir_events = choir_events | push: event %}
+    {% endif %}
+  {% endfor %}
 
-  {% assign past_events = choir_events | sort: "start" | reverse %}
-  {% assign past_events = past_events | where_exp: "event", "event.start and event.start | date: '%s' < now" %}
+  {% assign upcoming_events = "" | split: "," %}
+  {% assign past_events = "" | split: "," %}
+
+  {% for event in choir_events %}
+    {% if event.start %}
+      {% assign event_ts = event.start | date: "%s" %}
+      {% if event_ts >= now %}
+        {% assign upcoming_events = upcoming_events | push: event %}
+      {% else %}
+        {% assign past_events = past_events | push: event %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% assign upcoming_events = upcoming_events | sort: "start" %}
+  {% assign past_events = past_events | sort: "start" | reverse %}
 
   <h3>Upcoming Events</h3>
   {% if upcoming_events.size > 0 %}
