@@ -7,24 +7,54 @@ layout: null
 {% assign events = site.events | sort: "start" %}
 {% for event in events %}
   {% assign venue = site.venues | where: "slug", event.venue | first %}
-  {% assign choir_names = "" | split: "" %}
-  {% for choir_slug in event.choirs %}
-    {% assign choir = site.choirs | where: "slug", choir_slug | first %}
-    {% if choir %}
-      {% assign choir_names = choir_names | push: choir.name %}
+
+  {% assign event_choirs = "" | split: "" %}
+  
+  {% for choir_entry in event.choirs %}
+    {% assign choir = site.choirs | where: "slug", choir_entry.slug | first %}
+  
+    {% if choir_entry.conductors %}
+      {% assign conductor_slugs = choir_entry.conductors %}
+    {% elsif choir and choir.conductors %}
+      {% assign conductor_slugs = choir.conductors %}
     {% else %}
-      {% assign choir_names = choir_names | push: choir_slug %}
+      {% assign conductor_slugs = "" | split: "" %}
     {% endif %}
+  
+    {% assign conductor_names = "" | split: "" %}
+    {% for cslug in conductor_slugs %}
+      {% assign conductor = site.conductors | where: "slug", cslug | first %}
+      {% if conductor %}
+        {% assign conductor_names = conductor_names | push: conductor.name %}
+      {% else %}
+        {% assign conductor_names = conductor_names | push: cslug %}
+      {% endif %}
+    {% endfor %}
+  
+    {% assign event_choirs = event_choirs | push: 
+      {
+        "slug": choir_entry.slug,
+        "name": choir.name,
+        "conductors": conductor_slugs,
+        "conductor_names": conductor_names
+      }
+    %}
   {% endfor %}
+
+  {% if venue %}
+    {% assign city = venue.city %}
+  {% else %}
+    {% assign city = nil %}
+  {% endif %}
+
   {
     "title": {{ event.title | jsonify }},
     "type": {{ event.type | jsonify }},
     "url": {{ event.url | relative_url | jsonify }},
     "start": {{ event.start | jsonify }},
-    "choirs": {{ event.choirs | jsonify }},
-    "choir_names": {{ choir_names | jsonify }},
+    "choirs": {{ event_choirs | jsonify }},
     "venue": {{ event.venue | jsonify }},
-    "city": {{ venue.city | jsonify }}
+    "city": {{ city | jsonify }}
   }{% unless forloop.last %},{% endunless %}
 {% endfor %}
 ]
