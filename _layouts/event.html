@@ -60,13 +60,27 @@ layout: default
           {% if conductor_slugs %}
             <div class="event-conductors">
               <span class="label">Conductor{% if conductor_slugs.size > 1 %}s{% endif %}:</span>
-              {% for cslug in conductor_slugs %}
-                {% assign conductor = site.people | where: "slug", cslug | first %}
-                {% if conductor %}
-                  <span class="conductor-name">{{ conductor.name }}</span>{% unless forloop.last %}, {% endunless %}
+              {% for c in conductor_slugs %}
+                {% comment %} c can be a string (manual) or object {% endcomment %}
+                {% if c.slug %}
+                  {% assign conductor = site.people | where: "slug", c.slug | first %}
+                  {% if conductor %}
+                    <a class="conductor-name" href="{{ conductor.url | relative_url }}">
+                      {{ conductor.name }}
+                    </a>
+                  {% else %}
+                    <span class="conductor-name">{{ c.slug }}</span>
+                  {% endif %}
+                {% elsif c.name %}
+                  {% if c.external %}
+                    <span class="conductor-name external">{{ c.name }}</span>
+                  {% else %}
+                    <span class="conductor-name">{{ c.name }}</span>
+                  {% endif %}
                 {% else %}
-                  <span class="conductor-name">{{ cslug }}</span>{% unless forloop.last %}, {% endunless %}
+                  <span class="conductor-name">{{ c }}</span>
                 {% endif %}
+                {% unless forloop.last %}, {% endunless %}
               {% endfor %}
             </div>
           {% endif %}
