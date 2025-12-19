@@ -7,10 +7,6 @@ Welcome to the **Amateur Choirs Directory**.
 This platform presents amateur choirs in the region, their concerts,
 conductors, and venues.
 
-→ <a href="{{ '/choirs/' | relative_url }}">Browse choirs</a>
-
-→ <a href="{{ '/agenda/' | relative_url }}">Events agenda</a>
-
 {% assign now = "now" | date: "%s" %}
 {% assign upcoming_events = "" | split: "," %}
 
@@ -43,6 +39,3 @@ conductors, and venues.
 {% else %}
   <p>There are no upcoming events scheduled.</p>
 {% endif %}
-
-
-→ <a href="{{ '/venues/' | relative_url }}">Browse venues</a>
