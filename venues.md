@@ -18,17 +18,8 @@ permalink: /venues/
 
 <div id="venues-map" style="height: 500px; margin-top: 2em;"></div>
 
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-sA+4y5rZ5rsH3kMZ+Fs0nC3m8siP1A6l5g0hK8L7n0A="
-  crossorigin=""
-/>
-<script
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-oMQtP3t2F+QdTj1Zl0zHzEYsC1cPZqk+zFJj5N6reCI="
-  crossorigin=""
-></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
