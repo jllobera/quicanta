@@ -2,6 +2,6 @@
 slug: marta-garcia
 name: Marta García
 role: conductor
-choirs:
+past-choirs:
   - choral-harmonia
 ---
