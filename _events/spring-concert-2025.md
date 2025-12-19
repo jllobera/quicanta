@@ -8,7 +8,8 @@ type: concert
 choirs:
   - slug: choral-harmonia
     conductors:
-      - marta-garcia
+      - slug: marta-garcia
+      - name: "Patricia Miró"
 external-performers:
   - Quartet de corda XYZ
 venue: cathedral-girona
