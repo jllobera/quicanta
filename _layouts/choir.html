@@ -55,16 +55,29 @@ layout: default
     {{ content }}
   </div>
 
+  {% comment %}
+  -----------------------------
+  EVENTS SECTION
+  -----------------------------
+  {% endcomment %}
+
   {% assign now = "now" | date: "%s" %}
+
+  {% comment %}
+  Filter events where this choir participates.
+  We must extract the slugs because `event.choirs` is an array of objects.
+  {% endcomment %}
   {% assign choir_events = site.events | where_exp: "event", "event.choirs | map: 'slug' | contains page.slug" %}
 
-  {% assign upcoming_events = choir_events 
-      | where_exp: "event", "event.start and event.start | date: '%s' >= now" 
-      | sort: "start" %}
+  {% comment %}
+  Sort first by start date (ascending) to avoid Liquid filtering issues.
+  Use event.start | date: '%s' to compare Unix timestamps reliably.
+  {% endcomment %}
+  {% assign upcoming_events = choir_events | sort: "start" %}
+  {% assign upcoming_events = upcoming_events | where_exp: "event", "event.start and event.start | date: '%s' >= now" %}
 
-  {% assign past_events = choir_events 
-      | where_exp: "event", "event.start and event.start | date: '%s' < now" 
-      | sort: "start" | reverse %}
+  {% assign past_events = choir_events | sort: "start" | reverse %}
+  {% assign past_events = past_events | where_exp: "event", "event.start and event.start | date: '%s' < now" %}
 
   <h3>Upcoming Events</h3>
   {% if upcoming_events.size > 0 %}
