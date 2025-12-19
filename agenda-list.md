@@ -6,17 +6,17 @@ permalink: /agenda-list/
 <h2>Concert agenda</h2>
 
 {% assign today = site.time | date: "%Y-%m-%d" %}
-{% assign concerts = site.concerts | sort: "start" %}
+{% assign events = site.events | sort: "start" %}
 
 {% assign current_month = "" %}
 
 <ul class="agenda">
-{% for concert in concerts %}
-  {% if concert.start %}
-    {% assign concert_date = concert.start | date: "%Y-%m-%d" %}
-    {% if concert_date >= today %}
+{% for event in events %}
+  {% if event.start %}
+    {% assign event_date = event.start | date: "%Y-%m-%d" %}
+    {% if event_date >= today %}
 
-      {% assign month_label = concert.start | date: "%B %Y" %}
+      {% assign month_label = event.start | date: "%B %Y" %}
 
       {% if month_label != current_month %}
         {% unless forloop.first %}
@@ -30,15 +30,15 @@ permalink: /agenda-list/
 
       <li class="agenda-item">
         <strong>
-          {{ concert.start | date: "%a %d" }}
+          {{ event.start | date: "%a %d" }}
         </strong>
         –
-        <a href="{{ concert.url | relative_url }}">
-          {{ concert.title }}
+        <a href="{{ event.url | relative_url }}">
+          {{ event.title }}
         </a>
 
-        {% if concert.venue %}
-          {% assign venue = site.venues | where: "slug", concert.venue | first %}
+        {% if event.venue %}
+          {% assign venue = site.venues | where: "slug", event.venue | first %}
           {% if venue %}
             ({{ venue.city }})
           {% endif %}
