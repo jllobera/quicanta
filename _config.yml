@@ -9,7 +9,7 @@ collections:
   choirs:
     output: true
     permalink: /choirs/:slug/
-  concerts:
+  events:
     output: true
     permalink: /concerts/:slug/
   venues:
