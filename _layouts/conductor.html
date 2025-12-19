@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+<article class="conductor">
+
+  <h2>{{ page.name }}</h2>
+
+  {% comment %}
+  Find all choirs where this conductor is listed
+  {% endcomment %}
+  {% assign choirs_led = "" | split: "" %}
+  {% for choir in site.choirs %}
+    {% if choir.conductors and choir.conductors contains page.slug %}
+      {% assign choirs_led = choirs_led | push: choir %}
+    {% endif %}
+  {% endfor %}
+
+  {% if choirs_led.size > 0 %}
+    <h3>Choirs conducted</h3>
+    <ul>
+      {% for choir in choirs_led %}
+        <li>
+          <a href="{{ choir.url | relative_url }}">
+            {{ choir.name }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>This conductor is not currently listed as leading any choirs.</p>
+  {% endif %}
+
+  <div class="description">
+    {{ content }}
+  </div>
+
+</article>
