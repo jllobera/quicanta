@@ -1,5 +1,5 @@
 ---
-layout: concert
+layout: event
 slug: spring-concert-2025
 title: Spring Concert
 start: 2025-12-18T19:30
