@@ -18,6 +18,7 @@ layout: null
   {% endfor %}
   {
     "title": {{ event.title | jsonify }},
+    "type": {{ event.type | jsonify }},
     "url": {{ event.url | relative_url | jsonify }},
     "start": {{ event.start | jsonify }},
     "choirs": {{ event.choirs | jsonify }},
