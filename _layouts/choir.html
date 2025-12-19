@@ -25,6 +25,10 @@ layout: default
     </p>
   {% endif %}
 
+  <div class="description">
+    {{ content }}
+  </div>
+
   {% if page.conductors %}
     <h3>Current Conductors</h3>
     <ul class="choir-conductors">
@@ -51,9 +55,31 @@ layout: default
     </ul>
   {% endif %}
 
-  <div class="description">
-    {{ content }}
-  </div>
+  {% if page.past_conductors %}
+    <h3>Past Conductors</h3>
+    <ul class="choir-conductors past">
+      {% for c in page.past_conductors %}
+        {% if c.slug %}
+          {% assign conductor = site.people | where: "slug", c.slug | first %}
+          {% if conductor %}
+            <li>
+              <a href="{{ conductor.url | relative_url }}">
+                {{ conductor.name }}
+              </a>
+            </li>
+          {% else %}
+            <li>{{ c.slug }}</li>
+          {% endif %}
+        {% elsif c.name %}
+          <li{% if c.external %} class="external"{% endif %}>
+            {{ c.name }}
+          </li>
+        {% else %}
+          <li>{{ c }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
 
   {% comment %}
   -----------------------------
