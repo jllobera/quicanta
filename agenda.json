@@ -31,14 +31,17 @@ layout: null
       {% endif %}
     {% endfor %}
   
-    {% assign event_choirs = event_choirs | push: 
-      {
-        "slug": choir_entry.slug,
-        "name": choir.name,
-        "conductors": conductor_slugs,
-        "conductor_names": conductor_names
-      }
-    %}
+    {% capture choir_json %}
+    {
+      "slug": {{ choir_entry.slug | jsonify }},
+      "name": {{ choir.name | default: choir_entry.slug | jsonify }},
+      "conductors": {{ conductor_slugs | jsonify }},
+      "conductor_names": {{ conductor_names | jsonify }}
+    }
+    {% endcapture %}
+    
+    {% assign event_choirs = event_choirs | push: choir_json %}
+
   {% endfor %}
 
   {% if venue %}
@@ -49,10 +52,12 @@ layout: null
 
   {
     "title": {{ event.title | jsonify }},
-    "type": {{ event.type | jsonify }},
+    "type": {{ event.type | default: "concert" | jsonify }},
     "url": {{ event.url | relative_url | jsonify }},
     "start": {{ event.start | jsonify }},
-    "choirs": {{ event_choirs | jsonify }},
+    "choirs": [
+      {{ event_choirs | join: "," }}
+    ],
     "venue": {{ event.venue | jsonify }},
     "city": {{ city | jsonify }}
   }{% unless forloop.last %},{% endunless %}
