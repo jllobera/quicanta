@@ -42,4 +42,36 @@ layout: default
     </ul>
   {% endif %}
 
+  {% if page.coordinates %}
+    <div id="venue-map" style="height: 300px; margin-top: 1em;"></div>
+  {% endif %}
+
 </article>
+
+{% if page.coordinates %}
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+4y5rZ5rsH3kMZ+Fs0nC3m8siP1A6l5g0hK8L7n0A="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-oMQtP3t2F+QdTj1Zl0zHzEYsC1cPZqk+zFJj5N6reCI="
+    crossorigin=""
+  ></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var map = L.map('venue-map').setView([{{ page.coordinates[0] }}, {{ page.coordinates[1] }}], 16);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(map);
+
+      L.marker([{{ page.coordinates[0] }}, {{ page.coordinates[1] }}])
+        .addTo(map)
+        .bindPopup('<strong><a href="{{ page.url | relative_url }}">{{ page.name }}</a></strong><br>{{ page.address }}');
+    });
+  </script>
+{% endif %}
