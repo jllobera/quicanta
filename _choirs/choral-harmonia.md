@@ -11,6 +11,9 @@ conductors:
   - slug: marta-garcia
   - name: "Paco López"
   - name: "Patricia Miró"
+past_conductors:
+  - name: "Laura Rodríguez"
+  - slug: joan-perez
 ---
 Choral Harmonia is an amateur mixed choir based in Girona, focusing on
 classical and contemporary repertoire.
