@@ -56,7 +56,7 @@ layout: default
   </div>
 
   {% assign now = "now" | date: "%s" %}
-  {% assign choir_events = site.events | where_exp: "event", "event.choirs contains page.slug" %}
+  {% assign choir_events = site.events | where_exp: "event", "event.choirs | map: 'slug' | contains page.slug" %}
 
   {% assign upcoming_events = choir_events 
       | where_exp: "event", "event.start and event.start | date: '%s' >= now" 
