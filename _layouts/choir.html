@@ -55,22 +55,52 @@ layout: default
     {{ content }}
   </div>
 
-  {% assign choir_concerts = site.concerts | where_exp: "concert", "concert.choirs contains page.slug" %}
+  {% assign now = "now" | date: "%s" %}
+  {% assign choir_events = site.events | where_exp: "event", "event.choirs contains page.slug" %}
   
-  {% if choir_concerts.size > 0 %}
-    <h3>Upcoming concerts</h3>
+  {% assign upcoming_events = choir_events 
+      | where_exp: "event", "event.start and event.start | date: '%s' >= now" 
+      | sort: "start" %}
+  
+  {% assign past_events = choir_events 
+      | where_exp: "event", "event.start and event.start | date: '%s' < now" 
+      | sort: "start" | reverse %}
+  
+  <h3>Upcoming Events</h3>
+  {% if upcoming_events.size > 0 %}
     <ul>
-      {% for concert in choir_concerts %}
+      {% for event in upcoming_events %}
         <li>
-          <a href="{{ concert.url | relative_url }}">
-            {{ concert.title }}
+          <a href="{{ event.url | relative_url }}">
+            {{ event.title }}
           </a>
-          {% if concert.start %}
-            – {{ concert.start | date: "%d %B %Y" }}
+          {% if event.start %}
+            – {{ event.start | date: "%d %B %Y" }}
           {% endif %}
         </li>
       {% endfor %}
     </ul>
+  {% else %}
+    <p>This choir has no upcoming events.</p>
   {% endif %}
+  
+  <h3>Past Events</h3>
+  {% if past_events.size > 0 %}
+    <ul>
+      {% for event in past_events %}
+        <li>
+          <a href="{{ event.url | relative_url }}">
+            {{ event.title }}
+          </a>
+          {% if event.start %}
+            – {{ event.start | date: "%d %B %Y" }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>This choir has no past events.</p>
+  {% endif %}
+
 
 </article>
