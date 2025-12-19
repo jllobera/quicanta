@@ -61,7 +61,7 @@ layout: default
             <div class="event-conductors">
               <span class="label">Conductor{% if conductor_slugs.size > 1 %}s{% endif %}:</span>
               {% for cslug in conductor_slugs %}
-                {% assign conductor = site.conductors | where: "slug", cslug | first %}
+                {% assign conductor = site.people | where: "slug", cslug | first %}
                 {% if conductor %}
                   <span class="conductor-name">{{ conductor.name }}</span>{% unless forloop.last %}, {% endunless %}
                 {% else %}
