@@ -5,11 +5,17 @@ layout: default
 <article class="conductor">
 
   <h2>{{ page.name }}</h2>
+  
+  <div class="description">
+    {{ content }}
+  </div>
 
   {% comment %}
-  Find all choirs where this conductor is listed
+  Find all choirs where this conductor is listed as current
   {% endcomment %}
   {% assign choirs_led = "" | split: "" %}
+  {% assign past_choirs_led = "" | split: "" %}
+
   {% for choir in site.choirs %}
     {% if choir.conductors %}
       {% for c in choir.conductors %}
@@ -19,9 +25,17 @@ layout: default
         {% endif %}
       {% endfor %}
     {% endif %}
+    {% if choir.past_conductors %}
+      {% for c in choir.past_conductors %}
+        {% if c.slug == page.slug %}
+          {% assign past_choirs_led = past_choirs_led | push: choir %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   {% endfor %}
 
-  {% if choirs_led.size > 0 %}
+  {% if choirs_led.size > 0 or past_choirs_led.size > 0 %}
     <h3>Choirs conducted</h3>
     <ul>
       {% for choir in choirs_led %}
@@ -31,13 +45,17 @@ layout: default
           </a>
         </li>
       {% endfor %}
+
+      {% for choir in past_choirs_led %}
+        <li>
+          <a href="{{ choir.url | relative_url }}">
+            {{ choir.name }}
+          </a> (past)
+        </li>
+      {% endfor %}
     </ul>
   {% else %}
     <p>This conductor is not currently listed as leading any choirs.</p>
   {% endif %}
-
-  <div class="description">
-    {{ content }}
-  </div>
 
 </article>
