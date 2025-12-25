@@ -36,6 +36,10 @@ a {
   margin-bottom: 0.5rem;
 }
 
+/* Base font adjustments for mobile readability */
+html {
+  font-size: 16px; /* default desktop size */
+}
 
 /* ========================
    Header & Navigation
