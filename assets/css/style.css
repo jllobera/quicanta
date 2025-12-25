@@ -36,25 +36,39 @@ a {
   margin-bottom: 0.5rem;
 }
 
-/* Header layout: title on left, nav on right */
+
+/* ========================
+   Header & Navigation
+======================== */
+
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 1rem 2rem;
+  background: #f0f0f0;
+  border-bottom: 1px solid #ddd;
 }
 
-/* Header nav spacing */
-header nav {
-  display: flex;      /* arrange links horizontally */
-  gap: 1.5rem;        /* space between links */
+/* Logo */
+header h1 {
+  margin: 0;
 }
 
-header nav a {
-  text-decoration: none; /* remove underline if needed */
-  color: inherit;        /* use the header's text color */
+header .logo {
+  height: 50px; /* adjust as needed */
 }
 
-/* Main nav */
+/* Hamburger toggle (mobile) */
+#nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Main nav list */
 .main-nav {
   list-style: none;
   display: flex;
@@ -63,25 +77,43 @@ header nav a {
   padding: 0;
 }
 
-.main-nav li {
+/* Nav buttons */
+.nav-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-btn:hover {
+  background: #e0e0e0;
+  color: #000;
+}
+
+/* Submenu container */
+.has-submenu {
   position: relative;
 }
 
-/* Submenu hidden by default */
+/* Submenu list */
 .submenu {
   display: none;
   position: absolute;
-  top: 100%;  
+  top: 100%;
   left: 0;
-  background: #f0f0f0;
+  background: #fff;
   list-style: none;
   padding: 0.5rem 0;
   margin: 0;
   min-width: 160px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  border-radius: 6px;
   z-index: 1000;
 }
 
+/* Submenu links */
 .submenu li a {
   display: block;
   padding: 0.5rem 1rem;
@@ -89,18 +121,11 @@ header nav a {
   text-decoration: none;
 }
 
-.submenu-toggle {
-  cursor: pointer;
-  color: #333;
-  text-decoration: none;
+.submenu li a:hover {
+  background: #f0f0f0;
 }
 
-.submenu-toggle:hover {
-  color: #007BFF;
-}
-
-
-/* Hover for desktop */
+/* Desktop: show submenu on hover */
 @media (min-width: 768px) {
   .has-submenu:hover > .submenu {
     display: block;
@@ -108,13 +133,6 @@ header nav a {
 }
 
 /* Mobile styles */
-#nav-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-}
-
 @media (max-width: 767px) {
   #nav-toggle {
     display: block;
@@ -123,6 +141,9 @@ header nav a {
   #main-nav {
     display: none;
     flex-direction: column;
+    width: 100%;
+    gap: 0;
+    margin-top: 0.5rem;
   }
 
   #main-nav.active {
@@ -138,17 +159,23 @@ header nav a {
     width: 100%;
   }
 
-  .submenu {
+  .has-submenu .submenu {
     position: static;
     box-shadow: none;
     min-width: auto;
+    border-radius: 0;
+  }
+
+  .has-submenu.active > .submenu {
+    display: block;
   }
 
   .submenu-toggle::after {
     content: " ▼";
   }
 
-  .has-submenu.active > .submenu {
-    display: block;
+  .has-submenu .submenu li a {
+    padding-left: 2rem;
   }
 }
+
