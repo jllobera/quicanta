@@ -16,24 +16,24 @@
 
   <!-- Hamburger toggle for mobile -->
   <button id="nav-toggle" aria-label="Toggle navigation">☰</button>
-
+  
   <nav id="main-nav">
     <ul class="main-nav">
-      <li><a href="{{ '/choirs/' | relative_url }}">Choirs</a></li>
-
+      <li><a href="{{ '/choirs/' | relative_url }}" class="nav-btn">Choirs</a></li>
+  
       <li class="has-submenu">
-        <span class="submenu-toggle">Events ▼</span>
+        <span class="submenu-toggle nav-btn">Events ▼</span>
         <ul class="submenu">
-          <li><a href="{{ '/events/' | relative_url }}">Event list</a></li>
-          <li><a href="{{ '/agenda/' | relative_url }}">Agenda</a></li>
+          <li><a href="{{ '/events/' | relative_url }}" class="nav-btn">Event list</a></li>
+          <li><a href="{{ '/agenda/' | relative_url }}" class="nav-btn">Agenda</a></li>
         </ul>
       </li>
-
-      <li><a href="{{ '/venues/' | relative_url }}">Venues</a></li>
-      <!-- <li><a href="{{ '/people/' | relative_url }}">People</a></li> -->
+  
+      <li><a href="{{ '/venues/' | relative_url }}" class="nav-btn">Venues</a></li>
     </ul>
   </nav>
 </header>
+
 
 
 <main>
