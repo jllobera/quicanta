@@ -79,6 +79,7 @@ header .logo {
   gap: 1.5rem;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
 
 /* Nav buttons */
@@ -91,6 +92,7 @@ header .logo {
   color: #333;
   background: linear-gradient(to bottom, #fafafa, #e8e8e8);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-size: 1rem;
 }
 
 /* Hover effect: slight lift and color change */
@@ -135,6 +137,7 @@ header .logo {
   color: #333;
   text-decoration: none;
   transition: all 0.2s ease;
+  font-size: 1rem;
 }
 
 .submenu li a:hover {
@@ -152,6 +155,14 @@ header .logo {
 
 /* Mobile styles */
 @media (max-width: 767px) {
+  html {
+    font-size: 18px; /* slightly larger text for mobile */
+  }
+
+  header .logo {
+    height: 80px; /* bigger for mobile visibility */
+  }
+  
   #nav-toggle {
     display: block;
   }
@@ -160,7 +171,7 @@ header .logo {
     display: none;
     flex-direction: column;
     width: 100%;
-    gap: 0;
+    gap: 0.25rem;
     margin-top: 0.5rem;
   }
 
@@ -170,7 +181,7 @@ header .logo {
 
   .main-nav {
     flex-direction: column;
-    gap: 0;
+    gap: 0.25rem;
   }
 
   .main-nav li {
@@ -194,6 +205,13 @@ header .logo {
 
   .has-submenu .submenu li a {
     padding-left: 2rem;
+    font-size: 1.05rem;
+  }
+
+  /* Larger tap targets for nav buttons */
+  .nav-btn {
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
   }
 }
 
