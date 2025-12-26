@@ -47,20 +47,23 @@
   <script src="{{ '/assets/js/nav.js' | relative_url }}"></script>
 
   <script>
-  const navToggle = document.getElementById('nav-toggle');
-  const mainNav = document.getElementById('main-nav');
-  const submenuToggles = document.querySelectorAll('.submenu-toggle');
+  document.addEventListener("DOMContentLoaded", function() {
+    const navToggle = document.getElementById('nav-toggle');
+    const mainNav = document.getElementById('main-nav');
+    const submenuToggles = document.querySelectorAll('.submenu-toggle');
   
-  navToggle.addEventListener('click', () => {
-    mainNav.classList.toggle('active');
-  });
+    navToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+    });
   
-  submenuToggles.forEach(toggle => {
-    toggle.addEventListener('click', () => {
-      toggle.parentElement.classList.toggle('active');
+    submenuToggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        toggle.parentElement.classList.toggle('active');
+      });
     });
   });
   </script>
+
 </body>
   
 </html>
