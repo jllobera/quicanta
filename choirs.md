@@ -3,6 +3,8 @@ title: Choirs
 permalink: /choirs/
 ---
 
+<link rel="stylesheet" href="{{ '/assets/css/choirs.css' | relative_url }}">
+
 <h2>Choirs</h2>
 
 <ul class="choir-list">
