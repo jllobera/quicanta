@@ -8,12 +8,14 @@ permalink: /choirs/
 <ul class="choir-list">
   {% for choir in site.choirs %}
     <li>
-      <h3>
-        <a href="{{ choir.url | relative_url }}">
-          {{ choir.name }}
-        </a>
-      </h3>
-      <p>{{ choir.city }}</p>
+      <a href="{{ choir.url | relative_url }}" class="choir-name">
+        {{ choir.name }}
+      </a>
+      –
+      {{ choir.city }}
+      –
+      {{ choir.voice_types | join: ", " }}
     </li>
   {% endfor %}
 </ul>
+
