@@ -16,8 +16,8 @@
 
 .choir-grid {
   display: grid;
-  /* grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); */
-  grid-template-columns: repeat(auto-fill, 260px);
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  /* grid-template-columns: repeat(auto-fill, 260px); */
   gap: 1rem;
   justify-content: center;
 }
@@ -36,7 +36,7 @@
 .choir-card {
   position: relative;
   display: block;
-  width: 260px;
+  /* width: 260px; */
   min-height: 150px;
   padding: 1rem;
   border-radius: 0.75rem;
