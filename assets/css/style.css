@@ -18,15 +18,6 @@ a {
   text-decoration: none;
 }
 
-.choir-list {
-  list-style: none;
-  padding: 0;
-}
-
-.choir-list li {
-  margin-bottom: 1rem;
-}
-
 .agenda {
   list-style: none;
   padding-left: 0;
