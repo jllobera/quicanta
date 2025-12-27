@@ -77,23 +77,33 @@ permalink: /choirs/
 <script>
   const cityFilter = document.getElementById("city-filter");
   const voiceFilter = document.getElementById("voice-filter");
+  const searchInput = document.getElementById("search-filter");
   const cards = document.querySelectorAll(".choir-card");
 
   function applyFilters() {
-    const city = cityFilter.value;
-    const voice = voiceFilter.value;
+    const city = cityFilter.value.toLowerCase();
+    const voice = voiceFilter.value.toLowerCase();
+    const search = searchInput.value.toLowerCase();
 
     cards.forEach(card => {
-      const cardCity = card.dataset.city;
-      const cardTypes = card.dataset.types.split(",");
+      const cardCity = card.dataset.city.toLowerCase();
+      const cardTypes = card.dataset.types.toLowerCase().split(",");
+      const cardName = card.querySelector(".choir-card-name").textContent.toLowerCase();
 
       const matchesCity = !city || cardCity === city;
       const matchesVoice = !voice || cardTypes.includes(voice);
+      const matchesSearch = !search || cardName.includes(search);
 
-      card.style.display = (matchesCity && matchesVoice) ? "" : "none";
+      if (matchesCity && matchesVoice && matchesSearch) {
+        card.classList.remove("hidden");
+      } else {
+        card.classList.add("hidden");
+      }
     });
   }
 
   cityFilter.addEventListener("change", applyFilters);
   voiceFilter.addEventListener("change", applyFilters);
+  searchInput.addEventListener("input", applyFilters);
 </script>
+
