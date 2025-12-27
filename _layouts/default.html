@@ -7,34 +7,34 @@
 </head>
   
 <body>
-  <header>
+<header>
     <h1>
       <a href="{{ '/' | relative_url }}">
         <img src="{{ '/assets/img/logo-1.jpg' | relative_url }}" alt="{{ site.title }}" class="logo">
       </a>
     </h1>
-  
+
     <!-- Hamburger toggle for mobile -->
-    <button id="nav-toggle" aria-label="Toggle navigation">☰</button>
-    
+    <button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      ☰
+    </button>
+
     <nav id="main-nav">
       <ul class="main-nav">
         <li><a href="{{ '/choirs/' | relative_url }}" class="nav-btn">Choirs</a></li>
-    
+
         <li class="has-submenu">
-          <span class="submenu-toggle nav-btn">Events ▼</span>
+          <button class="submenu-toggle nav-btn" type="button">Events</button>
           <ul class="submenu">
             <li><a href="{{ '/events/' | relative_url }}" class="nav-btn">Event list</a></li>
             <li><a href="{{ '/agenda/' | relative_url }}" class="nav-btn">Agenda</a></li>
           </ul>
         </li>
-    
+
         <li><a href="{{ '/venues/' | relative_url }}" class="nav-btn">Venues</a></li>
       </ul>
     </nav>
   </header>
-  
-  
   
   <main>
     {{ content }}
@@ -44,18 +44,20 @@
     <p>© {{ site.time | date: "%Y" }}</p>
   </footer>
 
-  <script src="{{ '/assets/js/nav.js' | relative_url }}"></script>
-
   <script>
   document.addEventListener("DOMContentLoaded", function() {
     const navToggle = document.getElementById('nav-toggle');
     const mainNav = document.getElementById('main-nav');
     const submenuToggles = document.querySelectorAll('.submenu-toggle');
-  
+
     navToggle.addEventListener('click', () => {
       mainNav.classList.toggle('active');
+      navToggle.setAttribute(
+        'aria-expanded',
+        mainNav.classList.contains('active')
+      );
     });
-  
+
     submenuToggles.forEach(toggle => {
       toggle.addEventListener('click', () => {
         toggle.parentElement.classList.toggle('active');
@@ -65,5 +67,4 @@
   </script>
 
 </body>
-  
 </html>
