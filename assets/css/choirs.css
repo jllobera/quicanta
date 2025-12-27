@@ -16,18 +16,31 @@
 
 .choir-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  /* grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); */
+  grid-template-columns: repeat(auto-fill, 260px);
   gap: 1rem;
+  justify-content: center;
 }
 
-/* === Card === */
+.choir-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.choir-filters label {
+  font-size: 0.9rem;
+}
 
 .choir-card {
   position: relative;
   display: block;
-  min-height: 140px;
+  width: 260px;
+  min-height: 150px;
   padding: 1rem;
   border-radius: 0.75rem;
+  text-align: center;
 
   background-color: color-mix(
     in srgb,
@@ -64,15 +77,17 @@
   pointer-events: none;
 }
 
-/* === Content === */
-
 .choir-card-content {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 .choir-card-name {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 600;
   margin-bottom: 0.25rem;
 }
