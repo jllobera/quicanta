@@ -11,3 +11,75 @@
   font-size: 1.25rem;
   font-weight: 600;
 }
+
+/* === Choir card grid === */
+
+.choir-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+/* === Card === */
+
+.choir-card {
+  position: relative;
+  display: block;
+  min-height: 140px;
+  padding: 1rem;
+  border-radius: 0.75rem;
+
+  background-color: color-mix(
+    in srgb,
+    var(--choir-color) 85%,
+    white
+  );
+
+  color: #111;
+  text-decoration: none;
+
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.choir-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+/* === Subtle cover image overlay === */
+
+.choir-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image: var(--choir-image);
+  background-size: cover;
+  background-position: center;
+
+  opacity: 0.08;
+  filter: saturate(0.8) contrast(0.9);
+
+  pointer-events: none;
+}
+
+/* === Content === */
+
+.choir-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.choir-card-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.choir-card-city,
+.choir-card-types {
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.3;
+}
