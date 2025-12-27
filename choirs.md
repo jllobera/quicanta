@@ -43,6 +43,11 @@ permalink: /choirs/
       {% endfor %}
     </select>
   </label>
+
+  <label>
+    Search:
+    <input type="text" id="search-filter" placeholder="Type a choir name">
+  </label>
 </div>
 
 <div class="choir-grid">
@@ -61,15 +66,9 @@ permalink: /choirs/
       "
     >
       <div class="choir-card-content">
-        <div class="choir-card-name">
-          {{ choir.name }}
-        </div>
-        <div class="choir-card-city">
-          {{ choir.city }}
-        </div>
-        <div class="choir-card-types">
-          {{ choir.voice_types | join: ", " }}
-        </div>
+        <div class="choir-card-name">{{ choir.name }}</div>
+        <div class="choir-card-city">{{ choir.city }}</div>
+        <div class="choir-card-types">{{ choir.voice_types | join: ", " }}</div>
       </div>
     </a>
   {% endfor %}
