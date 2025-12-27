@@ -1,0 +1,13 @@
+.choir-list {
+  list-style: none;
+  padding: 0;
+}
+
+.choir-list li {
+  margin-bottom: 0.75rem;
+}
+
+.choir-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
