@@ -21,11 +21,38 @@ permalink: /choirs/
   {% endfor %}
 </ul>
 
+<div class="choir-filters">
+  <label>
+    City:
+    <select id="city-filter">
+      <option value="">All</option>
+      {% assign cities = site.choirs | map: "city" | uniq | sort %}
+      {% for city in cities %}
+        <option value="{{ city }}">{{ city }}</option>
+      {% endfor %}
+    </select>
+  </label>
+
+  <label>
+    Voice type:
+    <select id="voice-filter">
+      <option value="">All</option>
+      {% assign all_types = site.choirs | map: "voice_types" | compact | uniq | sort %}
+      {% for type in all_types %}
+        <option value="{{ type }}">{{ type }}</option>
+      {% endfor %}
+    </select>
+  </label>
+</div>
+
 <div class="choir-grid">
-  {% for choir in site.choirs %}
+  {% assign sorted_choirs = site.choirs | sort: "name" %}
+  {% for choir in sorted_choirs %}
     <a
       href="{{ choir.url | relative_url }}"
       class="choir-card"
+      data-city="{{ choir.city }}"
+      data-types="{{ choir.voice_types | join: ',' }}"
       style="
         --choir-color: {{ choir.color | default: '#cfd8dc' }};
         {% if choir.cover_image %}
@@ -48,4 +75,26 @@ permalink: /choirs/
   {% endfor %}
 </div>
 
+<script>
+  const cityFilter = document.getElementById("city-filter");
+  const voiceFilter = document.getElementById("voice-filter");
+  const cards = document.querySelectorAll(".choir-card");
 
+  function applyFilters() {
+    const city = cityFilter.value;
+    const voice = voiceFilter.value;
+
+    cards.forEach(card => {
+      const cardCity = card.dataset.city;
+      const cardTypes = card.dataset.types.split(",");
+
+      const matchesCity = !city || cardCity === city;
+      const matchesVoice = !voice || cardTypes.includes(voice);
+
+      card.style.display = (matchesCity && matchesVoice) ? "" : "none";
+    });
+  }
+
+  cityFilter.addEventListener("change", applyFilters);
+  voiceFilter.addEventListener("change", applyFilters);
+</script>
