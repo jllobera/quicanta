@@ -12,7 +12,7 @@ conductors:
 past_conductors:
   - name: "Jordi Casals"
   - name: "Mercè Vidal"
-  - name: joan-perez
+  - slug: joan-perez
 ---
 Coral Montsalvat is a long-standing mixed choir from Girona with a strong
 focus on Catalan choral tradition and large-scale vocal works.
