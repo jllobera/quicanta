@@ -17,8 +17,9 @@
 .choir-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, 220px);
-  gap: 1rem;
-  justify-content: center;
+  gap: 1.5rem; /* increase spacing */
+  justify-content: start; /* prevent browser from compressing cards to center */
+  padding: 0.5rem; /* prevents first/last card from touching edges */
 }
 
 .choir-card {
